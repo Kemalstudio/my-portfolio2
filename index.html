@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>KEMAL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="HTML5 website template">
+  <meta name="keywords" content="portfolio, template, html, sass, jquery">
+  <meta name="author" content="Kemal Atayew">
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <style>
+    .header--logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 0 15px #00c6ff, 0 0 30px #0072ff, 0 0 45px #00f2fe;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .header--logo img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #00c6ff, 0 0 50px #0072ff, 0 0 75px #00f2fe;
+    }
+
+    .intro--banner img {
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      transform: translateY(-15%);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 40px rgba(0, 200, 255, 0.6);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .intro--banner img:hover {
+      transform: translateY(-15%) scale(1.05);
+      box-shadow: 0 0 60px rgba(0, 200, 255, 0.9);
+    }
+  </style>
+
+  <!-- НОВЫЕ СТИЛИ ДЛЯ СЕКЦИИ "ABOUT" В СТИЛЕ ВАШЕГО САЙТА -->
+  <style>
+    .about-redesigned {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 40px;
+      box-sizing: border-box;
+      /* Нейтральный фон, чтобы не конфликтовать с основным дизайном */
+      background: #0c0c0c;
+    }
+
+    .about-container {
+      display: flex;
+      width: 100%;
+      max-width: 1100px;
+      background: #121212;
+      /* Более темный фон */
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(15, 51, 255, 0.3);
+      /* Синяя рамка */
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .about-sidebar {
+      flex: 0 0 250px;
+      padding-right: 30px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .about-sidebar h2 {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #0f33ff;
+      /* Фирменный синий цвет */
+      margin-top: 0;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px rgba(15, 51, 255, 0.7);
+      /* Синее свечение */
+    }
+
+    .about-sidebar p {
+      color: #aaa;
+      font-size: 1em;
+      line-height: 1.6;
+      font-weight: 300;
+      /* Более легкий шрифт для описания */
+    }
+
+    .about-tabs {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .about-tab {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: left;
+      font-size: 1em;
+      font-weight: 400;
+      /* Стандартный вес */
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .about-tab:hover {
+      background: #222;
+      border-color: #0f33ff;
+      transform: translateX(5px);
+    }
+
+    .about-tab.active {
+      background-color: #0f33ff;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(15, 51, 255, 0.7);
+      border-color: #0f33ff;
+      transform: translateX(5px);
+    }
+
+    .about-details {
+      flex-grow: 1;
+      padding-left: 30px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .info-item {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 5px;
+      border: 1px solid #333;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .info-item:hover {
+      border-color: rgba(15, 51, 255, 0.5);
+    }
+
+    .info-item .label {
+      display: block;
+      color: #777;
+      font-size: 0.9em;
+      margin-bottom: 8px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-item .value {
+      display: block;
+      color: #f0f0f0;
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    /* Адаптация для экранов поменьше */
+    @media (max-width: 900px) {
+      .about-container {
+        flex-direction: column;
+      }
+
+      .about-sidebar {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-right: 0;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+      }
+
+      .about-details {
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-sidebar h2 {
+        font-size: 2em;
+      }
+    }
+  </style>
+
+  <!-- НОВЫЕ СТИЛИ ДЛЯ TOAST УВЕДОМЛЕНИЯ -->
+  <style>
+    .toast {
+      visibility: hidden; /* Скрыто по умолчанию */
+      min-width: 300px;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 30px;
+      font-size: 17px;
+      opacity: 0;
+      transition: opacity 0.5s, top 0.5s;
+      box-shadow: 0 0 25px rgba(15, 51, 255, 0.6);
+      border: 1px solid #0f33ff;
+      font-weight: 500;
+    }
+
+    /* Класс для показа уведомления */
+    .toast.show {
+      visibility: visible;
+      opacity: 1;
+      top: 50px; /* Позиция при показе */
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- НОВЫЙ HTML-ЭЛЕМЕНТ ДЛЯ TOAST УВЕДОМЛЕНИЯ -->
+  <div id="toast-notification" class="toast">Ваше сообщение успешно отправлено!</div>
+
+  <!-- notification for small viewports and landscape oriented smartphones -->
+  <div class="device-notification">
+    <a class="device-notification--logo" href="#0">
+      <img src="assets/img/Kemalstudio.jpg" alt="Global">
+      <p>Kemal</p>
+    </a>
+    <p class="device-notification--message">Global has so much to offer that we must request you orient your device to
+      portrait or find a larger screen. You won't be disappointed.</p>
+  </div>
+
+  <div class="perspective effect-rotate-left">
+    <div class="container">
+      <div class="outer-nav--return"></div>
+      <div id="viewport" class="l-viewport">
+        <div class="l-wrapper">
+          <header class="header">
+            <a class="header--logo" href="#0">
+              <img src="assets/img/Kemalstudio.jpg" alt="Kemalstudio">
+              <p>Kemal</p>
+            </a>
+            <button class="header--cta cta">Hire Me</button>
+            <div class="header--nav-toggle">
+              <span></span>
+            </div>
+          </header>
+
+          <nav class="l-side-nav">
+            <ul class="side-nav">
+              <li class="is-active"><span>Home</span></li>
+              <li><span>Works</span></li>
+              <li><span>About</span></li>
+              <li><span>Contact</span></li>
+              <li><span>Hire Me</span></li>
+            </ul>
+          </nav>
+
+          <ul class="l-main-content main-content">
+            <!-- Home -->
+            <li class="l-section section section--is-active">
+              <div class="intro">
+                <div class="intro--banner">
+                  <h1>Hello,<br> I'm Kemal<br>Full Stack App<br> Developer</h1>
+                  <button class="cta">
+                    Hire Me
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 118" xml:space="preserve">
+                      <g transform="translate(0,118) scale(0.1,-0.1)">
+                        <path d="M870,1167c-34-17-55-57-46-90c3-15,81-100,194-211l187-185l-565-1c-431,0-571-3-590-13c-55-28-64-94-18-137
+                      c21-20,33-20,597-20h575l-192-193C800,103,794,94,849,39c20-20,39-29,61-29c28,0,63,30,298,262c147,144,272,271,279,282
+                      c30,51,23,60-219,304C947,1180,926,1196,870,1167z" />
+                      </g>
+                    </svg>
+                    <span class="btn-background"></span>
+                  </button>
+                  <img src="assets/img/Kemalstudio.jpg" alt="Welcome">
+                </div>
+                <div class="intro--options">
+                  <a href="#0">
+                    <h3>Frontend Developer</h3>
+                    <p>I learned frontend development on my own and I'm always ready to learn new things to create
+                      modern interfaces.</p>
+                  </a>
+                  <a href="#0">
+                    <h3>Backend Developer</h3>
+                    <p>I started learning backend with the help of a mentor and then deepened my knowledge
+                      independently, creating reliable solutions.</p>
+                  </a>
+                  <a href="#0">
+                    <h3>App Developer</h3>
+                    <p>I mastered the basics of development with a little help, after which I continued to grow on my
+                      own, striving to create high-quality applications.</p>
+                  </a>
+                </div>
+              </div>
+            </li>
+
+            <!-- Works -->
+            <li class="l-section section">
+              <div class="work">
+                <h2>Selected work</h2>
+                <div class="work--lockup">
+                  <ul class="slider">
+                    <li class="slider--item slider--item-left">
+                      <a href="https://aura-computers.com/">
+                        <div class="slider--item-image">
+                          <img src="assets/img/logo/my-logo-backgroundwhite.png" alt="Victory">
+                        </div>
+                        <p class="slider--item-title">Aura Computers</p>
+                        <p class="slider--item-description">
+                          A professional online store built with PHP Laravel, featuring a powerful database, admin
+                          panel, and a modern design — ready for real business use.
+                        </p>
+                      </a>
+                    </li>
+                    <li class="slider--item slider--item-center">
+                      <a href="#0">
+                        <div class="slider--item-image">
+                          <img src="assets/img/logo/sonus-music.png" alt="Metiew and Smith">
+                        </div>
+                        <p class="slider--item-title">Sonus &amp; Musics</p>
+                        <p class="slider--item-description">A full-featured music platform built with PHP Laravel,
+                          complete with database, mobile support, and an admin panel. Users can listen, upload music,
+                          and subscribe to artists.</p>
+                      </a>
+                    </li>
+                    <li class="slider--item slider--item-right">
+                      <a href="http://127.0.0.1:5500/">
+                        <div class="slider--item-image">
+                          <img src="assets/img/logo/Union.png" alt="Alex Nowak">
+                        </div>
+                        <p class="slider--item-title">Drive Moto</p>
+                        <p class="slider--item-description">
+                          Experience the thrill of the water like never before with our state-of-the-art jet skis!
+                          Sleek, powerful, and reliable — perfect for adventure seekers. Feel the speed, feel the
+                          freedom, with HydroWave Xtreme.
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="slider--prev">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 118" xml:space="preserve">
+                      <g transform="translate(0,118) scale(0.1,-0.1)">
+                        <path d="M561,1169C525,1155,10,640,3,612c-3-13,1-36,8-52c8-15,134-145,281-289C527,41,562,10,590,10
+                      c22,0,41,9,61,29c55,55,49,64-163,278L296,510h575c564,0,576,0,597,20c46,43,37,109-18,137c-19,10-159,13-590,13l-565,1
+                      l182,180c101,99,187,188,193,199c16,30,12,57-12,84C631,1174,595,1183,561,1169z" />
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="slider--next">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 118" xml:space="preserve">
+                      <g transform="translate(0,118) scale(0.1,-0.1)">
+                        <path d="M870,1167c-34-17-55-57-46-90c3-15,81-100,194-211l187-185l-565-1c-431,0-571-3-590-13c-55-28-64-94-18-137
+                      c21-20,33-20,597-20h575l-192-193C800,103,794,94,849,39c20-20,39-29,61-29c28,0,63,30,298,262c147,144,272,271,279,282
+                      c30,51,23,60-219,304C947,1180,926,1196,870,1167z" />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- About -->
+            <li class="l-section section">
+              <!-- НАЧАЛО ОБНОВЛЕННОЙ СЕКЦИИ ABOUT -->
+              <div class="about-redesigned">
+                <div class="about-container">
+                  <div class="about-sidebar">
+                    <h2>Почему меня нанять?</h2>
+                    <p>Подробная информация о моем опыте, образовании, навыках и личных качествах.</p>
+                    <div class="about-tabs">
+                      <button class="about-tab">Опыт</button>
+                      <button class="about-tab">Образование</button>
+                      <button class="about-tab">Навыки</button>
+                      <button class="about-tab active">Обо мне</button>
+                    </div>
+                  </div>
+                  <div class="about-details">
+                    <div class="info-grid">
+                      <div class="info-item">
+                        <span class="label">Имя:</span>
+                        <span class="value">Атаев Кемал</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">Телефон:</span>
+                        <span class="value">+99364005374</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">Опыт:</span>
+                        <span class="value">1+ Год</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">Whatsapp:</span>
+                        <span class="value">kemalatayew913@outlook.com</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">Национальность:</span>
+                        <span class="value">Туркмен</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">Email:</span>
+                        <span class="value">kemalatayew913@gmail.com</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">Фриланс:</span>
+                        <span class="value">Недоступен</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">Языки:</span>
+                        <span class="value">Русский, Английский</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- Contact -->
+            <li class="l-section section">
+              <div class="contact">
+                <div class="contact--lockup">
+                  <div class="modal">
+                    <div class="modal--information">
+                      <p>Ashgabat / Turkmenistan</p>
+                      <a href="mailto:kemalatayew913@gmail.com">kemalatayew913@gmail.com</a>
+                      <a href="tel:+99364005374">+993 64 00 53 74</a>
+                    </div>
+                    <ul class="modal--options">
+                      <li><a href="https://github.com/Kemalstudio">GitHub</a></li>
+                      <li><a href="#0">Telegram</a></li>
+                      <li><a href="#0">WhatsApp</a></li>
+                      <li><a href="mailto:kemalatayew913@gmail.com">Contact Us</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- Hire Me -->
+            <li class="l-section section">
+              <div class="hire">
+                <h2>You want us to do</h2>
+                <!-- ИЗМЕНЕННАЯ ФОРМА ДЛЯ FORMSPREE -->
+                <form class="work-request" action="https://formspree.io/f/mpwjkjlo" method="POST">
+                  <div class="work-request--options">
+                    <span class="options-a">
+                      <input id="opt-1" type="checkbox" value="frontend developer" name="service_1">
+                      <label for="opt-1">Frontend Developer</label>
+                      <input id="opt-2" type="checkbox" value="backend developer" name="service_2">
+                      <label for="opt-2">Backend Developer</label>
+                      <input id="opt-3" type="checkbox" value="app developer" name="service_3">
+                      <label for="opt-3">App Developer</label>
+                    </span>
+                    <span class="options-b">
+                      <input id="opt-4" type="checkbox" value="api development" name="other_service_1">
+                      <label for="opt-4">Full Stack</label>
+                    </span>
+                  </div>
+                  <div class="work-request--information">
+                    <div class="information-name">
+                      <input id="name" type="text" name="name" spellcheck="false" required>
+                      <label for="name">Name</label>
+                    </div>
+                    <div class="information-email">
+                      <input id="email" type="email" name="email" spellcheck="false" required>
+                      <label for="email">Email</label>
+                    </div>
+                  </div>
+                  <!-- Скрытое поле для редиректа -->
+                  <input type="hidden" name="_next" value="?status=success">
+                  <input type="submit" value="Send Request">
+                </form>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <ul class="outer-nav">
+      <li class="is-active">Home</li>
+      <li>Works</li>
+      <li>About</li>
+      <li>Contact</li>
+      <li>Hire Me</li>
+    </ul>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
+  <script src="assets/js/functions-min.js"></script>
+
+  <!-- НОВЫЙ СКРИПТ ДЛЯ УПРАВЛЕНИЯ TOAST УВЕДОМЛЕНИЕМ -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Ищем в URL параметр status=success
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+
+      if (status === 'success') {
+        const toast = document.getElementById("toast-notification");
+        if (toast) {
+          // Показываем уведомление
+          toast.classList.add("show");
+
+          // Скрываем уведомление через 5 секунд
+          setTimeout(function() {
+            toast.classList.remove("show");
+          }, 5000);
+
+          const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+          window.history.replaceState({path: newUrl}, '', newUrl);
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>
