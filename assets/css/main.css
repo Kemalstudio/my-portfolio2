@@ -802,7 +802,7 @@ body {
 .intro--options>a {
     max-width: 250px;
     text-decoration: none;
-    color: #282828;
+    color: #4c4d4b;
     -webkit-transition: color .2s ease-in-out;
     transition: color .2s ease-in-out
 }
@@ -1365,7 +1365,7 @@ body {
     background-image: url("../img/cart.png");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: auto; 
+    background-size: auto;
     transform: translate(-50%, -50%);
 }
 
